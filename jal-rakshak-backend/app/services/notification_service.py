@@ -1,11 +1,19 @@
 import base64
+import importlib
 import json
 import os
 from typing import Any
 from urllib import parse, request
 from urllib.error import HTTPError, URLError
 
-from dotenv import load_dotenv
+
+try:
+    load_dotenv = importlib.import_module("dotenv").load_dotenv
+except ImportError:
+
+    def load_dotenv(*args, **kwargs):
+        return False
+
 
 load_dotenv()
 
@@ -18,7 +26,6 @@ def _env(
     name: str,
     default: str = "",
 ) -> str:
-
     return os.getenv(
         name,
         default,
@@ -26,7 +33,6 @@ def _env(
 
 
 def notifications_enabled() -> bool:
-
     return _env(
         "ALERT_NOTIFICATIONS_ENABLED",
         "false",
@@ -39,7 +45,6 @@ def notifications_enabled() -> bool:
 
 
 def telegram_configured() -> bool:
-
     return bool(
         _env("TELEGRAM_BOT_TOKEN")
         and _env("TELEGRAM_CHAT_ID")
@@ -47,7 +52,6 @@ def telegram_configured() -> bool:
 
 
 def twilio_configured() -> bool:
-
     return bool(
         _env("TWILIO_ACCOUNT_SID")
         and _env("TWILIO_AUTH_TOKEN")
@@ -209,11 +213,23 @@ def send_twilio_sms(
         f"Accounts/{account_sid}/Messages.json"
     )
 
+    # --------------------------------------------------------
+    # TWILIO TRIAL MODE
+    #
+    # Trial accounts only accept predefined SMS templates.
+    # "sms_internal_alerts" is the approved template.
+    #
+    # After upgrading Twilio, replace this with the actual
+    # JAL-RAKSHAK alert message.
+    # --------------------------------------------------------
+
+    sms_body = "sms_internal_alerts"
+
     body = parse.urlencode(
         {
             "To": to_number,
             "From": from_number,
-            "Body": message[:1600],
+            "Body": sms_body,
         }
     ).encode("utf-8")
 
@@ -258,14 +274,32 @@ def send_twilio_sms(
             "success": True,
             "channel": "twilio",
             "status": "SENT",
-            "sid": response_body.get(
-                "sid"
-            ),
+            "sid": response_body.get("sid"),
             "response": response_body,
         }
 
+    except HTTPError as exc:
+
+        error_body = ""
+
+        try:
+            error_body = exc.read().decode(
+                "utf-8"
+            )
+        except Exception:
+            pass
+
+        return {
+            "success": False,
+            "channel": "twilio",
+            "status": "FAILED",
+            "message": (
+                f"HTTP Error {exc.code}: "
+                f"{error_body or str(exc)}"
+            ),
+        }
+
     except (
-        HTTPError,
         URLError,
         TimeoutError,
         ValueError,
