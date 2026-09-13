@@ -1,0 +1,72 @@
+{
+  "filter_health": {
+    "best_model": "CatBoost",
+    "comparison_table": [
+      {
+        "Model": "CatBoost",
+        "Accuracy": 0.9372,
+        "Precision (macro)": 0.9349,
+        "Recall (macro)": 0.9292,
+        "F1 (macro)": 0.9318,
+        "Precision (weighted)": 0.9367,
+        "Recall (weighted)": 0.9372,
+        "F1 (weighted)": 0.9367
+      },
+      {
+        "Model": "Random Forest",
+        "Accuracy": 0.9313,
+        "Precision (macro)": 0.9273,
+        "Recall (macro)": 0.9232,
+        "F1 (macro)": 0.9252,
+        "Precision (weighted)": 0.9308,
+        "Recall (weighted)": 0.9313,
+        "F1 (weighted)": 0.931
+      },
+      {
+        "Model": "XGBoost",
+        "Accuracy": 0.9272,
+        "Precision (macro)": 0.9239,
+        "Recall (macro)": 0.919,
+        "F1 (macro)": 0.9213,
+        "Precision (weighted)": 0.9266,
+        "Recall (weighted)": 0.9272,
+        "F1 (weighted)": 0.9266
+      }
+    ]
+  },
+  "water_quality": {
+    "best_model": "CatBoost",
+    "comparison_table": [
+      {
+        "Model": "CatBoost",
+        "Accuracy": 0.9213,
+        "Precision (macro)": 0.9185,
+        "Recall (macro)": 0.912,
+        "F1 (macro)": 0.9151,
+        "Precision (weighted)": 0.9207,
+        "Recall (weighted)": 0.9213,
+        "F1 (weighted)": 0.9208
+      },
+      {
+        "Model": "Random Forest",
+        "Accuracy": 0.9131,
+        "Precision (macro)": 0.9093,
+        "Recall (macro)": 0.9047,
+        "F1 (macro)": 0.9069,
+        "Precision (weighted)": 0.9126,
+        "Recall (weighted)": 0.9131,
+        "F1 (weighted)": 0.9128
+      },
+      {
+        "Model": "XGBoost",
+        "Accuracy": 0.9137,
+        "Precision (macro)": 0.9098,
+        "Recall (macro)": 0.9029,
+        "F1 (macro)": 0.9062,
+        "Precision (weighted)": 0.9132,
+        "Recall (weighted)": 0.9137,
+        "F1 (weighted)": 0.9133
+      }
+    ]
+  }
+}

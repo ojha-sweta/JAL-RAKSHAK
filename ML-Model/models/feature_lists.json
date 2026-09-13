@@ -1,0 +1,34 @@
+{
+  "filter_health_features": [
+    "Raw_TDS_ppm",
+    "Raw_Turbidity_NTU",
+    "Raw_Temperature_C",
+    "Treated_TDS_ppm",
+    "Treated_Turbidity_NTU",
+    "Treated_pH",
+    "Treated_Temperature_C",
+    "Flow_Rate_L_min",
+    "TDS_Removal_Efficiency_pct",
+    "Turbidity_Removal_Efficiency_pct",
+    "Temperature_Difference_C",
+    "Previous_TDS_Efficiency_pct",
+    "Efficiency_Improvement_pp",
+    "Rolling_3Cycle_Avg_Efficiency_pct",
+    "Efficiency_Trend_pct",
+    "Previous_Turbidity_Efficiency_pct",
+    "Rolling_3Cycle_Avg_Turbidity_Efficiency_pct",
+    "Cycle_Number"
+  ],
+  "water_quality_features": [
+    "Raw_TDS_ppm",
+    "Raw_Turbidity_NTU",
+    "Raw_Temperature_C",
+    "Treated_TDS_ppm",
+    "Treated_Turbidity_NTU",
+    "Treated_pH",
+    "Treated_Temperature_C",
+    "TDS_Removal_Efficiency_pct",
+    "Turbidity_Removal_Efficiency_pct",
+    "Temperature_Difference_C"
+  ]
+}
