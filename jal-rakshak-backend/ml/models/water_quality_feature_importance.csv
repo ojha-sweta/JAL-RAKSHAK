@@ -1,0 +1,11 @@
+Feature,Importance
+Treated_Turbidity_NTU,19.763947577370423
+Treated_TDS_ppm,18.981580002578088
+TDS_Removal_Efficiency_pct,15.561046186460471
+Turbidity_Removal_Efficiency_pct,11.136480122990479
+Raw_Turbidity_NTU,10.773591403998152
+Treated_pH,9.07187023238858
+Raw_TDS_ppm,6.565770766419793
+Temperature_Difference_C,2.890241629722553
+Raw_Temperature_C,2.787748913143893
+Treated_Temperature_C,2.467723164927562

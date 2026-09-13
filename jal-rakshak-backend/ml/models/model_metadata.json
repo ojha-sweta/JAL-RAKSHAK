@@ -1,0 +1,18 @@
+{
+    "dataset": "JAL_RAKSHAK_8000_Final_FilterHealth_WaterQuality_Dataset_60_40.csv",
+    "training_rows": 4800,
+    "testing_rows": 3200,
+    "filter_health_accuracy": 0.9375,
+    "water_quality_accuracy": 0.920625,
+    "filter_health_classes": [
+        "HEALTHY",
+        "MODERATE",
+        "UNHEALTHY"
+    ],
+    "water_quality_classes": [
+        "SAFE",
+        "WARNING",
+        "CRITICAL"
+    ],
+    "model": "CatBoostClassifier"
+}
