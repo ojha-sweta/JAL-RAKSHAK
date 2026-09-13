@@ -1,0 +1,4 @@
+Model,Accuracy,Precision (macro),Recall (macro),F1 (macro),Precision (weighted),Recall (weighted),F1 (weighted)
+CatBoost,0.9372,0.9349,0.9292,0.9318,0.9367,0.9372,0.9367
+Random Forest,0.9313,0.9273,0.9232,0.9252,0.9308,0.9313,0.931
+XGBoost,0.9272,0.9239,0.919,0.9213,0.9266,0.9272,0.9266
