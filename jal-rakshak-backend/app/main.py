@@ -10,6 +10,8 @@ from app.api.ml import router as ml_router
 
 from app.database.database import Base, engine
 
+# Import all SQLAlchemy models so their tables are registered
+# before create_all() runs.
 from app.models.telemetry import Telemetry
 from app.models.cycle import TreatmentCycle
 from app.models.command import DeviceCommand
@@ -18,7 +20,7 @@ from app.models.alert import AlertState
 
 
 # ============================================================
-# DATABASE INITIALIZATION
+# DATABASE
 # ============================================================
 
 Base.metadata.create_all(bind=engine)
@@ -41,27 +43,40 @@ app = FastAPI(
 # ============================================================
 # CORS
 # ============================================================
+#
+# Frontend:
+#   Vercel production URL
+#   Vercel preview URLs
+#
+# Development:
+#   Vite localhost URLs
+#
+# We do not use allow_origins=["*"] together with
+# allow_credentials=True.
+#
+# The regex allows Vercel deployment/preview domains without
+# having to update the backend every time Vercel creates a new
+# deployment URL.
+#
 
 app.add_middleware(
     CORSMiddleware,
-
     allow_origins=[
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5173",
-    "http://127.0.0.1:5174",
-    "https://jal-rakshak-pi.vercel.app",
-],
+        "https://jal-rakshak-pi.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:5174",
+    ],
+    allow_origin_regex=r"^https://.*\.vercel\.app$",
     allow_credentials=True,
-
     allow_methods=["*"],
-
     allow_headers=["*"],
 )
 
 
 # ============================================================
-# API ROUTERS
+# API ROUTES
 # ============================================================
 
 app.include_router(
@@ -70,13 +85,11 @@ app.include_router(
     tags=["Telemetry"],
 )
 
-
 app.include_router(
     dashboard_router,
     prefix="/api/dashboard",
     tags=["Dashboard"],
 )
-
 
 app.include_router(
     device_router,
@@ -84,26 +97,31 @@ app.include_router(
     tags=["Device"],
 )
 
-
 app.include_router(
     alerts_router,
     prefix="/api/alerts",
     tags=["Alerts"],
 )
+
 app.include_router(
     cycles_router,
     prefix="/api/cycles",
     tags=["Cycles"],
 )
-app.include_router(ml_router, prefix="/api/ml", tags=["Machine Learning"])
+
+app.include_router(
+    ml_router,
+    prefix="/api/ml",
+    tags=["Machine Learning"],
+)
+
 
 # ============================================================
-# ROOT
+# ROOT / HEALTH
 # ============================================================
 
 @app.get("/")
 async def root():
-
     return {
         "system": "JAL-RAKSHAK",
         "status": "online",
@@ -112,13 +130,8 @@ async def root():
     }
 
 
-# ============================================================
-# HEALTH CHECK
-# ============================================================
-
 @app.get("/health")
 async def health_check():
-
     return {
         "status": "healthy",
         "backend": "online",
